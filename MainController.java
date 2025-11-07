@@ -6,22 +6,55 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class MainController {
 
     @FXML
-    private void handleStart(ActionEvent event) throws IOException {
-        // Load the main screen FXML file
-        Parent mainScreen = FXMLLoader.load(getClass().getResource("MainMenuUC.fxml"));
-        Scene mainScene = new Scene(mainScreen);
+    private void openUnitConverter(ActionEvent event) {
+        System.out.println("[MainController] Start clicked");
 
-        // Get the current stage (window)
+        // Use absolute classpath path to avoid "not found" issues.
+        var url = getClass().getResource("/cs333/unitConverter.fxml");
+        if (url == null) {
+            showError("""
+                Can't find /cs333/unitConverter.fxml on the classpath.
+                Put the file at src/cs333/unitConverter.fxml (so it builds to bin/cs333/unitConverter.fxml).
+            """);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Unit Converter");
+            stage.show();
+        } catch (Exception ex) {
+            // Surface real cause chain in a dialog so you can fix fast.
+            StringBuilder sb = new StringBuilder("Failed to load unitConverter.fxml\n\n");
+            Throwable c = ex;
+            while (c != null) {
+                sb.append(c.getClass().getName()).append(": ").append(c.getMessage()).append("\n");
+                c = c.getCause();
+            }
+            ex.printStackTrace();
+            showError(sb.toString());
+        }
+    }
+
+    @FXML
+    private void handleExit(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
 
-        // Switch the scene
-        stage.setScene(mainScene);
-        stage.show();
+    private void showError(String msg) {
+        Alert a = new Alert(Alert.AlertType.ERROR, msg);
+        a.setHeaderText("Navigation Error");
+        a.showAndWait();
     }
 }
