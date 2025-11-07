@@ -2,66 +2,58 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="UnitConverterController">
-  <columnConstraints>
-    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label text="English/Metric" />
-      <TextField fx:id="englishMetricTextField" GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Button fx:id="converterButton" mnemonicParsing="false" text="Convert" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextField fx:id="weightTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField fx:id="resultTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="Result" GridPane.rowIndex="6" />
-      <TextField fx:id="lengthTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="Weight" GridPane.rowIndex="1" />
-      <TextField fx:id="tempTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="Length" GridPane.rowIndex="2" />
-      <Label text="Temperature" GridPane.rowIndex="3" />
-      <TextField fx:id="speedTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="Speed" GridPane.rowIndex="4" />
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+<GridPane xmlns="http://javafx.com/javafx/25"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cs333.UnitConverterController"
+          hgap="10" vgap="10" prefWidth="460" prefHeight="300">
+
+    <columnConstraints>
+        <ColumnConstraints minWidth="140" prefWidth="160" />
+        <ColumnConstraints minWidth="240" prefWidth="280" />
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints minHeight="34" prefHeight="38"/>
+        <RowConstraints minHeight="34" prefHeight="38"/>
+        <RowConstraints minHeight="34" prefHeight="38"/>
+        <RowConstraints minHeight="46" prefHeight="50"/>
+        <RowConstraints minHeight="34" prefHeight="38"/>
+    </rowConstraints>
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <!-- Mode (direction) -->
+    <Label text="Mode" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <ComboBox fx:id="modeComboBox" promptText="Choose direction"
+              GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <!-- Unit Type -->
+    <Label text="Unit Type" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <ComboBox fx:id="unitTypeComboBox" promptText="Select what to convert"
+              GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <!-- Single numeric input -->
+    <Label text="Value" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="valueTextField" promptText="Enter number"
+               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <!-- Convert button -->
+    <Button fx:id="converterButton" text="Convert"
+            GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <!-- Result -->
+    <Label text="Result" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="resultTextField" editable="false"
+               promptText="Converted value will appear here"
+               GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
 </GridPane>
