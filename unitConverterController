@@ -1,103 +1,107 @@
+package cs333;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class UnitConverterController {
 
-    @FXML
-    private Button converterButton;
+	@FXML
+	private ComboBox<String> modeComboBox; // "English → Metric" or "Metric → English"
+	@FXML
+	private ComboBox<String> unitTypeComboBox; // "Weight", "Length", "Temperature", "Speed"
+	@FXML
+	private TextField valueTextField;
+	@FXML
+	private TextField resultTextField;
+	@FXML
+	private Button converterButton;
 
-    @FXML
-    private TextField englishMetricTextField;
+	@FXML
+	public void initialize() {
+		// Populate dropdowns here (avoids FXML <String> parsing issues)
+		modeComboBox.getItems().setAll("English → Metric", "Metric → English");
+		modeComboBox.getSelectionModel().selectFirst();
 
-    @FXML
-    private TextField lengthTextField;
+		unitTypeComboBox.getItems().setAll("Weight", "Length", "Temperature", "Speed");
+		unitTypeComboBox.getSelectionModel().selectFirst();
 
-    @FXML
-    private TextField resultTextField;
+		converterButton.setOnAction(e -> convertUnits());
+	}
 
-    @FXML
-    private TextField speedTextField;
+	private void convertUnits() {
+		String mode = modeComboBox.getValue();
+		String type = unitTypeComboBox.getValue();
 
-    @FXML
-    private TextField tempTextField;
+		String raw = valueTextField.getText().trim();
+		if (raw.isEmpty()) {
+			resultTextField.setText("Enter a number first.");
+			return;
+		}
 
-    @FXML
-    private TextField weightTextField;
+		double value;
+		try {
+			value = Double.parseDouble(raw);
+		} catch (NumberFormatException ex) {
+			resultTextField.setText("Invalid number.");
+			return;
+		}
 
-    @FXML
-    public void initialize() {
-        converterButton.setOnAction(event -> convertUnits());
-    }
+		String result;
+		switch (type) {
+		case "Weight" -> {
+			if (isMetricToEnglish(mode)) {
+				// kg -> lb
+				double pounds = value * 2.20462;
+				result = String.format("%.2f kg → %.2f lb", value, pounds);
+			} else {
+				// lb -> kg
+				double kg = value / 2.20462;
+				result = String.format("%.2f lb → %.2f kg", value, kg);
+			}
+		}
+		case "Length" -> {
+			if (isMetricToEnglish(mode)) {
+				// km -> mi
+				double miles = value * 0.621371;
+				result = String.format("%.2f km → %.2f mi", value, miles);
+			} else {
+				// mi -> km
+				double km = value / 0.621371;
+				result = String.format("%.2f mi → %.2f km", value, km);
+			}
+		}
+		case "Temperature" -> {
+			if (isMetricToEnglish(mode)) {
+				// °C -> °F
+				double f = (value * 9 / 5) + 32;
+				result = String.format("%.2f °C → %.2f °F", value, f);
+			} else {
+				// °F -> °C
+				double c = (value - 32) * 5 / 9;
+				result = String.format("%.2f °F → %.2f °C", value, c);
+			}
+		}
+		case "Speed" -> {
+			if (isMetricToEnglish(mode)) {
+				// km/h -> mph
+				double mph = value * 0.621371;
+				result = String.format("%.2f km/h → %.2f mph", value, mph);
+			} else {
+				// mph -> km/h
+				double kph = value / 0.621371;
+				result = String.format("%.2f mph → %.2f km/h", value, kph);
+			}
+		}
+		default -> result = "Select a unit type.";
+		}
 
-    private void convertUnits() {
-        String mode = englishMetricTextField.getText().trim().toLowerCase();
+		resultTextField.setText(result);
+	}
 
-        double speed = parseDoubleOrZero(speedTextField.getText());
-        double temp = parseDoubleOrZero(tempTextField.getText());
-        double weight = parseDoubleOrZero(weightTextField.getText());
-        double length = parseDoubleOrZero(lengthTextField.getText());
-
-        StringBuilder result = new StringBuilder();
-
-        switch (mode) {
-            case "metric":
-                // Convert from metric → english
-                if (!speedTextField.getText().isEmpty()) {
-                    double mph = speed * 0.621371;
-                    result.append(String.format("Speed: %.2f mph ", mph));
-                }
-                if (!tempTextField.getText().isEmpty()) {
-                    double fahrenheit = (temp * 9 / 5) + 32;
-                    result.append(String.format("Temp: %.2f °F ", fahrenheit));
-                }
-                if (!weightTextField.getText().isEmpty()) {
-                    double pounds = weight * 2.20462;
-                    result.append(String.format("Weight: %.2f lb ", pounds));
-                }
-                if (!lengthTextField.getText().isEmpty()) {
-                    double miles = length * 0.621371;
-                    result.append(String.format("Length: %.2f mi ", miles));
-                }
-                break;
-
-            case "english":
-                // Convert from english → metric
-                if (!speedTextField.getText().isEmpty()) {
-                    double kph = speed / 0.621371;
-                    result.append(String.format("Speed: %.2f km/h ", kph));
-                }
-                if (!tempTextField.getText().isEmpty()) {
-                    double celsius = (temp - 32) * 5 / 9;
-                    result.append(String.format("Temp: %.2f °C ", celsius));
-                }
-                if (!weightTextField.getText().isEmpty()) {
-                    double kilograms = weight / 2.20462;
-                    result.append(String.format("Weight: %.2f kg ", kilograms));
-                }
-                if (!lengthTextField.getText().isEmpty()) {
-                    double kilometers = length / 0.621371;
-                    result.append(String.format("Length: %.2f km ", kilometers));
-                }
-                break;
-
-            default:
-                resultTextField.setText("Enter 'english' or 'metric' first!");
-                return;
-        }
-
-        if (result.length() == 0) {
-            resultTextField.setText("Enter a value to convert.");
-        } else {
-            resultTextField.setText(result.toString().trim());
-        }
-    }
-
-    private double parseDoubleOrZero(String text) {
-        try {
-            return Double.parseDouble(text);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
+	private boolean isMetricToEnglish(String mode) {
+		return "Metric → English".equals(mode);
+	}
 }
+
