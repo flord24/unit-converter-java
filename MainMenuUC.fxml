@@ -7,19 +7,45 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400" prefWidth="600" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="cs333.MainController">
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+           stylesheets="@style.css"
+           xmlns="http://javafx.com/javafx/25"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="cs333.MainController"
+           styleClass="main-root">
 
     <center>
-        <VBox alignment="CENTER" spacing="20">
-            <Label style="-fx-text-fill: #2b2b2b;" text="Unit Converter">
+        <VBox alignment="CENTER" spacing="20" styleClass="menu-card">
+            <!-- Title -->
+            <Label text="Unit Converter" styleClass="title-label">
                 <font>
                     <Font name="Arial Rounded MT Bold" size="36" />
                 </font>
             </Label>
 
-            <Button fx:id="openConverterButton" onAction="#openUnitConverter" style="-fx-background-color: #0078D7; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Start!" />
+            <!-- Subtitle -->
+           <!-- FIXED -->
+ <Label text="Fast &amp; easy conversions for length, weight, temperature, and more."
+       styleClass="subtitle-label" />
 
-            <Button fx:id="exitButton" onAction="#handleExit" style="-fx-background-color: #C62828; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Exit" />
+
+            <!-- Buttons container -->
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="openConverterButton"
+                        onAction="#openUnitConverter"
+                        text="Start Converting"
+                        styleClass="primary-button" />
+
+                <Button fx:id="aboutButton"
+                        onAction="#showAbout"
+                        text="About"
+                        styleClass="secondary-button" />
+
+                <Button fx:id="exitButton"
+                        onAction="#handleExit"
+                        text="Exit"
+                        styleClass="danger-button" />
+            </VBox>
         </VBox>
     </center>
 
@@ -27,4 +53,5 @@
         <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
 </BorderPane>
+
 
