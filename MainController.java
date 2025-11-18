@@ -51,6 +51,21 @@ public class MainController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+    
+    @FXML
+    private void showAbout(ActionEvent event) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setHeaderText("About this app");
+        a.setContentText("""
+                Unit Converter
+                CS 333 – JavaFX Project
+
+                Quickly convert between common units like length,
+                weight, temperature, and more.
+                """);
+        a.showAndWait();
+    }
+
 
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg);
@@ -58,3 +73,7 @@ public class MainController {
         a.showAndWait();
     }
 }
+
+
+
+
