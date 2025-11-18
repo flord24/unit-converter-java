@@ -29,6 +29,13 @@ public class UnitConverterController {
 
 		converterButton.setOnAction(e -> convertUnits());
 	}
+	
+	@FXML
+	private void clearFields() {
+	    valueTextField.clear();
+	    resultTextField.clear();
+	}
+
 
 	private void convertUnits() {
 		String mode = modeComboBox.getValue();
@@ -103,5 +110,8 @@ public class UnitConverterController {
 	private boolean isMetricToEnglish(String mode) {
 		return "Metric → English".equals(mode);
 	}
+	@FXML
+	private void handleExit() {
+	    javafx.application.Platform.exit();
+	}
 }
-
