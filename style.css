@@ -1,0 +1,220 @@
+/* ===========================
+   GLOBAL APP BACKGROUND
+   =========================== */
+.main-root {
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);
+}
+
+
+
+/* ===========================
+   MENU SCREEN STYLES
+   =========================== */
+
+/* Center glass card */
+.menu-card {
+    -fx-padding: 30;
+    -fx-spacing: 20;
+    -fx-background-color: rgba(15, 23, 42, 0.85);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 20, 0.2, 0, 8);
+}
+
+/* Title text */
+.title-label {
+    -fx-text-fill: #f9fafb;
+    -fx-font-size: 36px;
+}
+
+/* Subtitle under title */
+.subtitle-label {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-max-width: 400px;
+    -fx-alignment: center;
+}
+
+
+
+/* ===========================
+   BUTTONS
+   =========================== */
+
+/* All buttons */
+.button {
+    -fx-font-size: 16px;
+    -fx-padding: 8 24 8 24;
+    -fx-background-radius: 999;
+    -fx-cursor: hand;
+}
+
+/* Primary (Start, Convert) */
+.primary-button {
+    -fx-background-color: #0ea5e9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.primary-button:hover {
+    -fx-background-color: #38bdf8;
+    -fx-translate-y: -1;
+}
+
+/* Secondary (About, Clear) */
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 999;
+    -fx-text-fill: #e5e7eb;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(148, 163, 184, 0.15);
+}
+
+/* Exit / Danger */
+.danger-button {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: white;
+}
+
+.danger-button:hover {
+    -fx-background-color: #ef4444;
+    -fx-translate-y: -1;
+}
+
+
+
+/* ===========================
+   CONVERTER SCREEN
+   =========================== */
+
+/* Glass card for unit converter screen */
+.converter-card {
+    -fx-background-color: rgba(15, 23, 42, 0.9);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 22, 0.25, 0, 10);
+}
+
+/* Converter screen title */
+.converter-title {
+    -fx-text-fill: #f9fafb;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding-bottom: 10;
+}
+
+/* Labels inside converter */
+.converter-card .label {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 14px;
+}
+
+
+
+/* ===========================
+   TEXT FIELDS
+   =========================== */
+
+.converter-card .text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.65);
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.35);
+    -fx-border-width: 1.2;
+    -fx-padding: 7 10 7 10;
+}
+
+.converter-card .text-field:focused {
+    -fx-border-color: #38bdf8;
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+
+
+/* ===========================
+   COMBOBOXES
+   =========================== */
+
+.converter-card .combo-box-base {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.65);
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.35);
+    -fx-border-width: 1.2;
+}
+
+.converter-card .combo-box-base:focused {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-border-color: #38bdf8;
+}
+
+
+
+/* ===========================
+   OPTIONAL HOVER/TRANSITION TOUCH
+   =========================== */
+
+/* Smooth transitions */
+.button,
+.text-field,
+.combo-box-base {
+    -fx-transition: 0.15s;
+}
+
+
+
+/* FORCE ComboBox text to be visible */
+.combo-box .list-cell,
+.combo-box-base .text,
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: white !important;
+}
+
+/* Prompt text inside ComboBox */
+.combo-box-base:focused > .text-field,
+.combo-box-base > .text-field {
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Make disabled-ish prompt style brighter */
+.combo-box-base .label {
+    -fx-text-fill: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ===========================
+   FIX COMBOBOX DROPDOWN POPUP
+   =========================== */
+
+/* Background of dropdown list */
+.combo-box-popup .list-view {
+    -fx-background-color: rgba(15, 23, 42, 0.95); /* dark glass */
+    -fx-border-color: #38bdf8;
+    -fx-border-width: 1.2;
+}
+
+/* Normal list cells */
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+/* Hovered option */
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(56, 189, 248, 0.25);
+    -fx-text-fill: white;
+}
+
+/* Selected option */
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: #38bdf8;
+    -fx-text-fill: white;
+}
