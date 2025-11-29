@@ -7,4 +7,4 @@ Includes input validation, a simple menu system, and clear results formatting.
 - Celsius ↔ Fahrenheit ↔ Kelvin conversions  
 - Miles ↔ Kilometers ↔ Meters conversions  
 - Input validation to prevent invalid entries  
-
+- History Log for previous conversions
