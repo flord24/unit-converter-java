@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 public class UnitConverterController {
 
@@ -12,11 +15,21 @@ public class UnitConverterController {
 	@FXML
 	private ComboBox<String> unitTypeComboBox; // "Weight", "Length", "Temperature", "Speed"
 	@FXML
+	private ListView<String> historyListView;
+
+	private final ObservableList<String> historyItems = FXCollections.observableArrayList();
+
+	@FXML
 	private TextField valueTextField;
 	@FXML
 	private TextField resultTextField;
 	@FXML
 	private Button converterButton;
+
+	@FXML
+	private void handleClearHistory() {
+		historyItems.clear();
+	}
 
 	@FXML
 	public void initialize() {
@@ -28,14 +41,16 @@ public class UnitConverterController {
 		unitTypeComboBox.getSelectionModel().selectFirst();
 
 		converterButton.setOnAction(e -> convertUnits());
-	}
-	
-	@FXML
-	private void clearFields() {
-	    valueTextField.clear();
-	    resultTextField.clear();
+		if (historyListView != null) {
+			historyListView.setItems(historyItems);
+		}
 	}
 
+	@FXML
+	private void clearFields() {
+		valueTextField.clear();
+		resultTextField.clear();
+	}
 
 	private void convertUnits() {
 		String mode = modeComboBox.getValue();
@@ -105,13 +120,37 @@ public class UnitConverterController {
 		}
 
 		resultTextField.setText(result);
+		addToHistory(valueTextField.getText(), result, unitTypeComboBox.getValue(), modeComboBox.getValue());
+
 	}
 
 	private boolean isMetricToEnglish(String mode) {
 		return "Metric → English".equals(mode);
 	}
+
+	private void addToHistory(String input, String output, String unitType, String mode) {
+		if (input == null || input.isBlank() || output == null || output.isBlank()) {
+			return;
+		}
+
+		String safeUnitType = (unitType != null) ? unitType : "Unknown type";
+		String safeMode = (mode != null) ? mode : "Unknown mode";
+
+		// Example entry: "10 cm (Length, Metric → English) → 3.94 in"
+		String entry = String.format("%s  (%s, %s)  →  %s", input.trim(), safeUnitType, safeMode, output.trim());
+
+		// Add newest at the top
+		historyItems.add(0, entry);
+
+		// Keep the list from getting huge
+		int MAX_HISTORY = 25;
+		if (historyItems.size() > MAX_HISTORY) {
+			historyItems.remove(MAX_HISTORY, historyItems.size());
+		}
+	}
+
 	@FXML
 	private void handleExit() {
-	    javafx.application.Platform.exit();
+		javafx.application.Platform.exit();
 	}
 }
