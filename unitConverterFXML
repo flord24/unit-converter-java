@@ -10,6 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
 
 <BorderPane xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -108,10 +111,32 @@
         <Button text="Exit"
                 onAction="#handleExit"
                 styleClass="danger-button" />
+                <Button text="Clear History"
+        onAction="#handleClearHistory"
+        styleClass="secondary-button" />
+
     </HBox>
 </bottom>
 
+    <right>
+        <VBox spacing="8" BorderPane.alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="20" right="24" bottom="20" left="0" />
+            </padding>
+
+            <!-- History label -->
+            <Label text="HISTORY"
+                   styleClass="section-label" />
+
+            <!-- History list -->
+            <ListView fx:id="historyListView"
+                      prefWidth="260"
+                      maxWidth="260"
+                      styleClass="history-list" />
+        </VBox>
+    </right>
 
 
 </BorderPane>
+
 
