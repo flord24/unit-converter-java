@@ -218,3 +218,21 @@
     -fx-background-color: #38bdf8;
     -fx-text-fill: white;
 }
+
+.section-label {
+    -fx-text-fill: rgba(248, 250, 252, 0.85);
+    -fx-font-size: 11px;
+    -fx-letter-spacing: 0.12em;
+    -fx-text-fill: #e5e7eb;
+}
+
+.history-list {
+    -fx-background-color: rgba(15, 23, 42, 0.65);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(148, 163, 184, 0.35);
+    -fx-border-radius: 12;
+    -fx-padding: 6;
+    -fx-control-inner-background: transparent;
+    -fx-text-fill: white;
+}
+
