@@ -58,7 +58,7 @@ public class MainController {
         a.setHeaderText("About this app");
         a.setContentText("""
                 Unit Converter
-                CS 333 – JavaFX Project
+                JavaFX Project
 
                 Quickly convert between common units like length,
                 weight, temperature, and more.
